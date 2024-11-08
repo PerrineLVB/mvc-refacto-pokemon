@@ -2,16 +2,12 @@
 require_once './Database.php';
 class Pokemon {
     private $conn;
-    private $table = 'pokemons';
+    private static $table = 'pokemons';
 
     private $id;
     private $name;
     private $type;
 
-    public function __construct() {
-        $database = new Database();
-        $this->conn = $database->getConnection();
-    }
 
     public function getId() {
         return $this->id;
@@ -33,17 +29,20 @@ class Pokemon {
     }
 
 
-    public function getAllPokemons() {
-        $dbh = $this->conn;
-        $query = ("SELECT id, name, type FROM " . $this->table);
+    public static function getAllPokemons() {
+        $database = new Database();
+        $dbh = $database->getConnection();
+        $query = ("SELECT * FROM ". self::$table);
         $stmt = $dbh->prepare($query);
         $stmt->execute();
-        return $stmt;
+        $pokemons = $stmt->fetchAll(PDO::FETCH_CLASS, 'Pokemon');
+        return $pokemons;
     }
 
     public function getPokemonById($id) {
-        $dbh = $this->conn;
-        $query = ("SELECT * FROM ". $this->table ." WHERE id_post = :id");
+        $database = new Database();
+        $dbh = $database->getConnection();
+        $query = ("SELECT * FROM ". self::$table ." WHERE id_post = :id");
         $stmt = $dbh->prepare($query);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
@@ -52,28 +51,31 @@ class Pokemon {
         return $pokemon;
     }
 
-    public function createPokemon() {
-        $dbh = $this->conn;
-        $query = "INSERT INTO " . $this->table . " (name, type) VALUES (:name, :type)";
+    public function createPokemon($name, $type) {
+        $database = new Database();
+        $dbh = $database->getConnection();
+        $query = "INSERT INTO " . self::$table . " (name, type) VALUES (:name, :type)";
         $stmt = $dbh->prepare($query);
-        $stmt->bindParam(':name', $this->name);
-        $stmt->bindParam(':type', $this->type);
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':type', $type);
         $stmt->execute();
     }
 
-    public function updatePokemon() {
-        $dbh = $this->conn;
-        $query = "UPDATE " . $this->table . " SET name = :name, type = :type WHERE id = :id";
+    public function updatePokemon($id, $name, $type) {
+        $database = new Database();
+        $dbh = $database->getConnection();
+        $query = "UPDATE " . self::$table . " SET name = :name, type = :type WHERE id = :id";
         $stmt = $dbh->prepare($query);
-        $stmt->bindParam(':id', $this->id);
-        $stmt->bindParam(':name', $this->name);
-        $stmt->bindParam(':type', $this->type);
+        $stmt->bindParam(':id', $id);
+        $stmt->bindParam(':name', $name);
+        $stmt->bindParam(':type', $type);
         $stmt->execute();
     }
 
     public function deletePokemon($id) {
-        $dbh = $this->conn;
-        $query = "DELETE FROM ". $this->table ." WHERE id = :id";
+        $database = new Database();
+        $dbh = $database->getConnection();
+        $query = "DELETE FROM ". self::$table ." WHERE id = :id";
         $stmt = $dbh->prepare($query);
         $stmt->bindParam(':id', $id);
         $stmt->execute();
