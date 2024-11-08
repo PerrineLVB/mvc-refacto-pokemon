@@ -1,5 +1,5 @@
 <?php
-require_once 'Database.php';
+require_once './Database.php';
 class Pokemon {
     private $conn;
     private $table = 'pokemons';
@@ -7,6 +7,11 @@ class Pokemon {
     private $id;
     private $name;
     private $type;
+
+    public function __construct() {
+        $database = new Database();
+        $this->conn = $database->getConnection();
+    }
 
     public function getId() {
         return $this->id;
@@ -30,7 +35,7 @@ class Pokemon {
 
     public function getAllPokemons() {
         $dbh = $this->conn;
-        $query = "SELECT id, name, type FROM " . $this->table;
+        $query = ("SELECT id, name, type FROM " . $this->table);
         $stmt = $dbh->prepare($query);
         $stmt->execute();
         return $stmt;
