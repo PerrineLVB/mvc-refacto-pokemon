@@ -1,1 +1,1 @@
-13/11 : pas terminé
+14/11 : quelques détails à régler
