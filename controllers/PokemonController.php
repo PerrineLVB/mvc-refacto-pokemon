@@ -1,18 +1,44 @@
 <?php
-require_once 'Database.php';
-require_once 'models/Pokemon.php';
+require_once './models/Pokemon.php';
 
 class PokemonController {
-    private $pokemon;
-
-    public function __construct() {
-        $database = new Database();
-        $db = $database->getConnection();
-        $this->pokemon = new Pokemon($db);
+    public function getAll() {
+        return Pokemon::getAllPokemons();
     }
 
-    public function getPokemons() {
-        return $this->pokemon->getAllPokemons();
+    public function getById($id) {
+        return (new Pokemon())->getPokemonById($id);
+    }
+
+    public function create() {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = $_POST['pokemonName'];
+            $type = $_POST['pokemonType'];
+            $pokemon = new Pokemon();
+            $pokemon->createPokemon($name, $type);
+            header('Location: index.php');
+        } else {
+            require_once 'views/createPokemon.php';
+        }
+    }
+
+    public function update($id) {
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $name = $_POST['pokemonName'];
+            $type = $_POST['pokemonType'];
+            $pokemon = new Pokemon();
+            $pokemon->updatePokemon($id, $name, $type);
+            header('Location: index.php');
+        } else {
+            $pokemon = (new Pokemon())->getPokemonById($id);
+            require_once 'views/updatePokemon.php';
+        }
+    }
+
+    public function delete($id) {
+        $pokemon = new Pokemon();
+        $pokemon->deletePokemon($id);
+        header('Location: index.php');
     }
 }
 ?>
