@@ -1,13 +1,6 @@
-<?php
-require_once './controllers/PokemonController.php';
-
-$controller = new PokemonController();
-$pokemons = $controller->getAll();
-?>
-
 <div class="container">
     <h1>Mon Pokedex</h1>
-    <a href="createPokemon.php" class="btn btn-primary mb-3"><i class="fa-solid fa-plus"></i> Nouveau Pokémon</a>
+    <a href="createPokemon.php" class="btn btn-info mb-3"><i class="fa-solid fa-plus"></i> Nouveau Pokémon</a>
     <div class="d-flex justify-content-evenly">
         <?php if (!empty($pokemons)): ?>
             <?php foreach ($pokemons as $pokemon): ?>
@@ -21,7 +14,10 @@ $pokemons = $controller->getAll();
                         </h5>
                         <a href="onePokemon.php?id=<?= $pokemon->getId(); ?>" class="btn btn-primary"><i class="fa-solid fa-eye"></i> Voir</a>
                         <a href="updatePokemon.php?id=<?= $pokemon->getId(); ?>" class="btn btn-success"><i class="fa-solid fa-edit"></i> Modifier</a>
-                        <a href="" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Supprimer</a>
+                        <form action="deletePokemon.php" method="POST" style="display:inline;">
+                            <input type="hidden" name="id" value="<?= $pokemon->getId(); ?>">
+                            <button type="submit" class="btn btn-danger"><i class="fa-solid fa-trash"></i> Supprimer</button>
+                        </form>
                     </div>
                 </div>
             <?php endforeach; ?>

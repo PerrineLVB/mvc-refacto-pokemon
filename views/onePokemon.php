@@ -1,4 +1,12 @@
 <?php
+require_once './controllers/PokemonController.php';
+
+if (isset($_GET['id'])) {
+    $id = $_GET['id'];
+    $controller = new PokemonController();
+    $pokemon = $controller->getById($id);
+}
+
 require_once 'views/partials/header.php';
 ?>
 
@@ -6,11 +14,11 @@ require_once 'views/partials/header.php';
         <h1 class="text-center">Détails du Pokémon</h1>
         <div class="mb-3">
             <label for="pokemonName" class="form-label">Nom</label>
-            <input type="text" class="form-control" id="pokemonName" value="<?= $pokemon['name']; ?>" readonly>
+            <input type="text" class="form-control" id="pokemonName" value="<?= $pokemon->getName(); ?>" readonly>
         </div>
         <div class="mb-3">
             <label for="pokemonType" class="form-label">Type</label>
-            <input type="text" class="form-control" id="pokemonType" value="<?= $pokemon['type']; ?>" readonly>
+            <input type="text" class="form-control" id="pokemonType" value="<?= $pokemon->getType(); ?>" readonly>
         </div>
         <a href="index.php" class="btn btn-primary">Retour</a>
     </section>
