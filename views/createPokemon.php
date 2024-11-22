@@ -1,5 +1,5 @@
 <?php
-require_once 'views/partials/header.php';
+require_once 'partials/header.php';
 ?>
 
     <section class="container w-50">
@@ -13,10 +13,10 @@ require_once 'views/partials/header.php';
                 <label for="pokemonType" class="form-label">Son type</label>
                 <input type="text" class="form-control" id="pokemonType" placeholder="Type du pokemon" name="pokemonType">
             </div>
-            <button type="submit" class="btn btn-primary">Enregistrer</button>
+            <button type="submit" class="btn btn-primary" href="../index.php">Enregistrer</button>
         </form>
     </section>
 
 <?php
-require_once 'views/partials/footer.php';
+require_once 'partials/footer.php';
 ?>

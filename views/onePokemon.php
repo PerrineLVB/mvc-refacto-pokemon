@@ -7,7 +7,7 @@ if (isset($_GET['id'])) {
     $pokemon = $controller->getById($id);
 }
 
-require_once 'views/partials/header.php';
+require_once '../partials/header.php';
 ?>
 
     <section class="container w-50">
@@ -24,5 +24,5 @@ require_once 'views/partials/header.php';
     </section>
 
 <?php
-require_once 'views/partials/footer.php';
+require_once '../partials/footer.php';
 ?>
