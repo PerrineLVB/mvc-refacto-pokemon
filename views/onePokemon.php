@@ -1,5 +1,5 @@
 <?php
-require_once './controllers/PokemonController.php';
+require_once '../controllers/PokemonController.php';
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
@@ -7,7 +7,7 @@ if (isset($_GET['id'])) {
     $pokemon = $controller->getById($id);
 }
 
-require_once '../partials/header.php';
+require_once 'partials/header.php';
 ?>
 
     <section class="container w-50">
@@ -20,9 +20,9 @@ require_once '../partials/header.php';
             <label for="pokemonType" class="form-label">Type</label>
             <input type="text" class="form-control" id="pokemonType" value="<?= $pokemon->getType(); ?>" readonly>
         </div>
-        <a href="index.php" class="btn btn-primary">Retour</a>
+        <a href="../index.php" class="btn btn-primary">Retour</a>
     </section>
 
 <?php
-require_once '../partials/footer.php';
+require_once 'partials/footer.php';
 ?>

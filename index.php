@@ -1,5 +1,9 @@
 <?php
 require_once 'views/partials/header.php';
+require_once './controllers/PokemonController.php';
+
+$controller = new PokemonController();
+$pokemons = $controller->getAll();
 ?>
 
 <div class="container">

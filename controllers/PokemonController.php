@@ -1,5 +1,5 @@
 <?php
-require_once './models/Pokemon.php';
+require_once __DIR__.'/../models/Pokemon.php';
 
 class PokemonController {
     public function getAll() {

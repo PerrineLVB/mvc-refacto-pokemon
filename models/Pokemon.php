@@ -1,5 +1,6 @@
 <?php
-require_once './Database.php';
+require_once __DIR__ . '/../Database.php';
+
 class Pokemon {
     private $conn;
     private static $table = 'pokemons';
@@ -42,7 +43,7 @@ class Pokemon {
     public function getPokemonById($id) {
         $database = new Database();
         $dbh = $database->getConnection();
-        $query = ("SELECT * FROM ". self::$table ." WHERE id_post = :id");
+        $query = ("SELECT * FROM ". self::$table ." WHERE id = :id");
         $stmt = $dbh->prepare($query);
         $stmt->bindParam(':id', $id);
         $stmt->execute();

@@ -1,5 +1,5 @@
 <?php
-require_once './controllers/PokemonController.php';
+require_once '../controllers/PokemonController.php';
 
 if (isset($_GET['id'])) {
     $id = $_GET['id'];
